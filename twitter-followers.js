@@ -32,7 +32,7 @@ class IosWidget {
     async renderUI() {
         let color = "#1D9BF0"
         let container = new ListWidget()
-        
+
         //标题
         let header = container.addStack()
         header.centerAlignContent()
@@ -44,7 +44,7 @@ class IosWidget {
         container.addSpacer(20)
 
         //粉丝数据
-        let data=this.getData();
+        let data = await this.getData();
         var followers = container.addText(data['FOLLOWERS_COUNT'])
         followers.font = Font.systemFont(32)
         followers.centerAlignText()
