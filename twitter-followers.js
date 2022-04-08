@@ -5,7 +5,6 @@ class IosWidget {
     */
     constructor(arg) {
         this.arg = arg
-        this.arg = "122" //TODO DELETE
         this.widgetSize = config.widgetFamily
     }
 
@@ -33,14 +32,7 @@ class IosWidget {
     async renderUI() {
         let color = "#1D9BF0"
         let container = new ListWidget()
-
-        if (!this.arg) {
-            var tips = container.addText('请在小组件参数处填写twitterid！')
-            tips.textColor = new Color(color)
-            tips.font = Font.systemFont(14)
-            return container
-        }
-
+        
         //标题
         let header = container.addStack()
         header.centerAlignContent()
@@ -69,7 +61,7 @@ class IosWidget {
         return container
     }
     //加载下载数据
-    async getData(end, start) {
+    async getData() {
         let api = '/twitter/followers/latest'
         let req = new Request(api)
         let res = await req.loadJSON()
