@@ -32,37 +32,36 @@ class IosWidget {
     async renderUI() {
         let color = "#1D9BF0"
         let container = new ListWidget()
+        //粉丝数据
+        let data = await this.getData();
+
+        //粉丝变化情况
+        let change = data['FOLLOWERS_COUNT_CHANGE']
+        let changeIcon = parseInt(change) > 0 ? "↑" : "↓";
+        let changeText = ""
+        let changeAbs = Math.abs(change)
+        if (changeAbs != 0) {
+            changeText = changeIcon + changeAbs
+        }
 
         //标题
         let header = container.addStack()
         header.centerAlignContent()
         let icon = header.addImage(await this.getImage('https://s3.bmp.ovh/imgs/2022/04/04/8bdbff42330cef61.png'))
         icon.imageSize = new Size(15, 15)
-        let title = header.addText(" 关注者")
+        let title = header.addText(" 关注者" + changeText)
         title.font = Font.systemFont(13)
         title.textColor = new Color(color)
-        container.addSpacer(20)
+        container.addSpacer(30)
 
         //粉丝数据
-        let data = await this.getData();
-        
-        var text=""
-        //粉丝数据
-        var text = countContainer.addText(data['FOLLOWERS_COUNT_TEXT'])
-        //粉丝变化情况
-        let change = data['FOLLOWERS_COUNT_CHANGE']
-        let changeIcon = parseInt(change) > 0 ? "↑" : "↓";
-        let changeAbs = Math.abs(change)
-        if (changeAbs != 0) {
-            text+=changeIcon + changeAbs
-        }
-
+        var text = container.addText(data['FOLLOWERS_COUNT_TEXT'])
         let followers = container.addText(text)
-        followers.centerAlignContent()
-        followers.addSpacer(20)
-        followers.font = Font.systemFont(28)
+        followers.font = Font.systemFont(30)
         followers.centerAlignText()
         followers.textColor = new Color(color)
+
+        container.addSpacer(30)
 
         //更新数据
         let updateText = container.addText('更新于:' + this.nowTime())
