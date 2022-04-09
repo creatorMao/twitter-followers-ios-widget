@@ -45,11 +45,28 @@ class IosWidget {
 
         //粉丝数据
         let data = await this.getData();
-        var followers = container.addText(data['FOLLOWERS_COUNT_TEXT'])
+        let countContainer=container.addStack()
+        countContainer.centerAlignContent()
+        countContainer.addSpacer(20)
+
+        //粉丝数据
+        var followers = countContainer.addText(data['FOLLOWERS_COUNT_TEXT'])
         followers.font = Font.systemFont(32)
         followers.centerAlignText()
         followers.textColor = new Color(color)
-        container.addSpacer(20)
+
+        //分数变化情况
+        let change=data['FOLLOWERS_COUNT_CHANGE']
+        let changeIcon=parseInt(change)>0?"↑":"↓";
+        let changeAbs=abs(change)
+
+        if(changeAbs!=0)
+        {
+            var followers = countContainer.addText(changeIcon+changeAbs)
+            followers.font = Font.systemFont(16)
+            followers.centerAlignText()
+            followers.textColor = new Color(color)
+        }
 
         //更新数据
         let updateText = container.addText('更新于:' + this.nowTime())
