@@ -52,12 +52,12 @@ class IosWidget {
         let title = header.addText(" 关注者" + changeText)
         title.font = Font.systemFont(13)
         title.textColor = new Color(color)
-        container.addSpacer(30)
+        container.addSpacer(20)
 
         //粉丝数据
-        var text = container.addText(data['FOLLOWERS_COUNT_TEXT'])
+        var text = data['FOLLOWERS_COUNT_TEXT']
         let followers = container.addText(text)
-        followers.font = Font.systemFont(30)
+        followers.font = Font.systemFont(32)
         followers.centerAlignText()
         followers.textColor = new Color(color)
 
