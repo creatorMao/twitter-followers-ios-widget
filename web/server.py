@@ -12,6 +12,16 @@ CORS(app, resources=r'/*')
 def index(name=None):
     return render_template('index.html')
 
+@app.route('/add',methods=['GET'])
+def addDownloadHistory():
+    username=request.args.get("username")
+    followersCount=request.args.get("followersCount")
+    followersCountText=request.args.get("followersCountText")
+    followersCountChange=request.args.get("followersCountChange")
+
+    DBService().addTwitterFollowers(username,followersCount,followersCountText,followersCountChange)
+    return "ok"
+
 @app.route('/twitter/followers/latest',methods=['GET'])
 def getFollowers():
     result=DBService().getFollowers()

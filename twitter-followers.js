@@ -45,7 +45,7 @@ class IosWidget {
 
         //粉丝数据
         let data = await this.getData();
-        var followers = container.addText(data['FOLLOWERS_COUNT'])
+        var followers = container.addText(data['FOLLOWERS_COUNT_TEXT'])
         followers.font = Font.systemFont(32)
         followers.centerAlignText()
         followers.textColor = new Color(color)
