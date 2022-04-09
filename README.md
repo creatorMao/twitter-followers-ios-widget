@@ -1,6 +1,6 @@
 # twitter-followers-ios-widget
 
-![example](./Images/QQ图片20220409000919.png)
+![example](./Images/QQ图片20220409153253.jpg)
 
 # 环境
 
@@ -25,7 +25,7 @@ self.GetTwitterFollowers("")
 python3 server.py
 ```
 
-## 1.3 启动获取最新关注接口
+## 1.3 启动获取最新关注数量接口
 ```
 cd web
 python3 server.py
@@ -43,4 +43,17 @@ curl http://xxxx:9855/twitter/followers/latest
     "IMP_DATE": "2022-04-09", 
     "IMP_TIME": "2022-04-09 14:37:14"
 }
+~~~
+
+## 1.4 修改小组件代码
+将twitter-followers.js中代码复制到scriptsable应用中，并修改请求地址
+
+~~~
+async getData() {
+    let api = "http://xxxx" + '/twitter/followers/latest'
+    let req = new Request(api)
+    let res = await req.loadJSON()
+    //console.log(res)
+    return res
+    }
 ~~~
