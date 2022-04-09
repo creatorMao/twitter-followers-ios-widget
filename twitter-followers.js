@@ -45,28 +45,29 @@ class IosWidget {
 
         //粉丝数据
         let data = await this.getData();
-        let countContainer=container.addStack()
+        let countContainer = container.addStack()
         countContainer.centerAlignContent()
-        countContainer.addSpacer(20)
+        countContainer.addSpacer(10)
 
         //粉丝数据
         var followers = countContainer.addText(data['FOLLOWERS_COUNT_TEXT'])
-        followers.font = Font.systemFont(32)
+        followers.font = Font.systemFont(28)
         followers.centerAlignText()
         followers.textColor = new Color(color)
 
-        //分数变化情况
-        let change=data['FOLLOWERS_COUNT_CHANGE']
-        let changeIcon=parseInt(change)>0?"↑":"↓";
-        let changeAbs=abs(change)
+        //粉丝变化情况
+        let change = data['FOLLOWERS_COUNT_CHANGE']
+        let changeIcon = parseInt(change) > 0 ? "↑" : "↓";
+        let changeAbs = Math.abs(change)
 
-        if(changeAbs!=0)
-        {
-            var followers = countContainer.addText(changeIcon+changeAbs)
-            followers.font = Font.systemFont(16)
+        if (changeAbs != 0) {
+            var followers = countContainer.addText(changeIcon + changeAbs)
+            followers.font = Font.systemFont(14)
             followers.centerAlignText()
             followers.textColor = new Color(color)
         }
+
+        container.addSpacer(20)
 
         //更新数据
         let updateText = container.addText('更新于:' + this.nowTime())
@@ -79,7 +80,7 @@ class IosWidget {
     }
     //加载下载数据
     async getData() {
-        let api = '/twitter/followers/latest'
+        let api = "http://xxxx" + '/twitter/followers/latest'
         let req = new Request(api)
         let res = await req.loadJSON()
         //console.log(res)
@@ -115,7 +116,6 @@ class IosWidget {
     }
 }
 module.exports = IosWidget
-
 // 如果是在编辑器内编辑、运行、测试，则取消注释这行，便于调试：
 await new IosWidget().test()
 // 如果是组件单独使用（桌面配置选择这个组件使用，则取消注释这一行：
