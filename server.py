@@ -52,25 +52,29 @@ class TwitterFollowers():
 
             driver = webdriver.Chrome(chrome_options=option)
 
-            driver.get("https://twitter.com/"+username)
-            driver.implicitly_wait(20)
-
-            followers = driver.find_element(By.XPATH, '//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/div/div/div/div[5]/div[2]/a/span[1]/span')
-            followersCountText=followers.text
-            #followersCountText="7,000"  测试用
-            followersCount=self.RemoveFormat(followersCountText)
-            followersCountChange=str(self.CalcCountChange(followersCount))
-            print(followersCountText)
-
-            self.dbService.addTwitterFollowers(username,followersCount,followersCountText,followersCountChange)
             try:
-                remote=""
-                url=remote+"/add?username="+username+"&followersCount="+followersCount+"&followersCountText="+followersCountText+"&followersCountChange="+followersCountChange
-                print(url)
-                self.requestDeal(url)
+                driver.get("https://twitter.com/"+username)
+                driver.implicitly_wait(20)
+
+                followers = driver.find_element(By.XPATH, '//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/div/div/div/div[5]/div[2]/a/span[1]/span')
+                followersCountText=followers.text
+                #followersCountText="7,000"  测试用
+                followersCount=self.RemoveFormat(followersCountText)
+                followersCountChange=str(self.CalcCountChange(followersCount))
+                print(followersCountText)
+
+                self.dbService.addTwitterFollowers(username,followersCount,followersCountText,followersCountChange)
+                try:
+                    remote=""
+                    url=remote+"/add?username="+username+"&followersCount="+followersCount+"&followersCountText="+followersCountText+"&followersCountChange="+followersCountChange
+                    print(url)
+                    self.requestDeal(url)
+                except Exception as error:
+                    print(error)
+                    pass
             except Exception as error:
-                print(error)
-                pass
+                    print(error)
+                    pass
 
             print('半个小时后，再次抓取~')
             time.sleep((1*3600*1)/2) #半个小时
