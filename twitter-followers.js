@@ -70,6 +70,7 @@ class IosWidget {
         updateText.textColor = new Color(color)
         updateText.textOpacity = 0.5
 
+        container.url="twitter://"
         return container
     }
     //加载下载数据
