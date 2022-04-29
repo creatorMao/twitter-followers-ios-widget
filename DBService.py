@@ -27,7 +27,7 @@ class DBService():
     def addTwitterFollowers(self, username,followersCount,followersCountText,followersCountChange):
         self.db.execute("INSERT INTO T_TWITTER_FOLLOWERS_HISTORY(USER_NAME,FOLLOWERS_COUNT,FOLLOWERS_COUNT_TEXT,FOLLOWERS_COUNT_CHANGE) VALUES(?,?,?,?)",(username,followersCount,followersCountText,followersCountChange))
 
-    def getLatestFollowers(self):
+    def getFollowers(self):
         result=self.db.query("SELECT * FROM T_TWITTER_FOLLOWERS_HISTORY ORDER BY IMP_TIME DESC LIMIT 1")
         res={}
         for row in result:
