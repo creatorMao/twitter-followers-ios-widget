@@ -36,11 +36,9 @@ curl http://xxxx:9855/twitter/followers/latest
 
 
 {
-    "USER_NAME": "", 
     "FOLLOWERS_COUNT": "6976", 
     "FOLLOWERS_COUNT_TEXT": "6,976", 
     "FOLLOWERS_COUNT_CHANGE": "-24", 
-    "IMP_DATE": "2022-04-09", 
     "IMP_TIME": "2022-04-09 14:37:14"
 }
 ~~~
