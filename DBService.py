@@ -42,11 +42,13 @@ class DBService():
         return res
 
     def getFollowerChange(self,baseDate):
-        result=self.db.query("SELECT SUM(FOLLOWERS_COUNT_CHANGE),MAX(IMP_TIME) FROM T_TWITTER_FOLLOWERS_HISTORY WHERE IMP_DATE=?",(baseDate,))
+        result=self.db.query("SELECT SUM(FOLLOWERS_COUNT_CHANGE),MAX(IMP_TIME),MAX(FOLLOWERS_COUNT),MAX(FOLLOWERS_COUNT_TEXT) FROM T_TWITTER_FOLLOWERS_HISTORY WHERE IMP_DATE=?",(baseDate,))
         res={}
         for row in result:
             res= {
                 'FOLLOWERS_COUNT_CHANGE':row[0],
                 'IMP_TIME':row[1],
+                'FOLLOWERS_COUNT':row[2],
+                'FOLLOWERS_COUNT_TEXT':row[3]
             }
         return res
