@@ -27,7 +27,7 @@ class DBService():
     def addTwitterFollowers(self, username,followersCount,followersCountText,followersCountChange):
         self.db.execute("INSERT INTO T_TWITTER_FOLLOWERS_HISTORY(USER_NAME,FOLLOWERS_COUNT,FOLLOWERS_COUNT_TEXT,FOLLOWERS_COUNT_CHANGE) VALUES(?,?,?,?)",(username,followersCount,followersCountText,followersCountChange))
 
-    def getFollowers(self):
+    def getLatestFollowers(self):
         result=self.db.query("SELECT * FROM T_TWITTER_FOLLOWERS_HISTORY ORDER BY IMP_TIME DESC LIMIT 1")
         res={}
         for row in result:
@@ -38,5 +38,15 @@ class DBService():
                 'FOLLOWERS_COUNT_CHANGE':row[3],
                 'IMP_DATE':row[4],
                 'IMP_TIME':row[5],
+            }
+        return res
+
+    def getFollowerChange(self,baseDate):
+        result=self.db.query("SELECT SUM(FOLLOWERS_COUNT_CHANGE),MAX(IMP_TIME) FROM T_TWITTER_FOLLOWERS_HISTORY WHERE IMP_DATE=?",(baseDate,))
+        res={}
+        for row in result:
+            res= {
+                'FOLLOWERS_COUNT_CHANGE':row[0],
+                'IMP_TIME':row[1],
             }
         return res

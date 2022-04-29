@@ -5,6 +5,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 from DBService import DBService
 from flask_cors import CORS
+import datetime
 
 app=Flask(__name__)
 CORS(app, resources=r'/*')
@@ -24,7 +25,8 @@ def addDownloadHistory():
 
 @app.route('/twitter/followers/latest',methods=['GET'])
 def getFollowers():
-    result=DBService().getFollowers()
+    baseDate=datetime.datetime.now().strftime('%Y-%m-%d')
+    result=DBService().getFollowerChange(baseDate)
     return json.dumps(result)
 
 if __name__=='__main__':
