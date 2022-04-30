@@ -6,3 +6,7 @@ __pycache__/DBService.cpython-38.pyc
 __pycache__/DBService.cpython-39.pyc
 Common/__pycache__/SQLiteHelper.cpython-38.pyc
 Images/Thumbs.db
+log/2022-04-30.log
+Common/__pycache__/LoggerHelper.cpython-37.pyc
+Common/__pycache__/Logger.cpython-37.pyc
+Common/__pycache__/ConfigHelper.cpython-37.pyc

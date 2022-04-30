@@ -15,9 +15,10 @@
 # 使用
 
 ## 1.1 设置抓取用户id
-修改/server.py文件
+修改/conf.ini文件
 ```
-self.GetTwitterFollowers("")
+[user]
+userName = xxx
 ```
 
 ## 1.2 启动抓取主服务

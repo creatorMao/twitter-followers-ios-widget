@@ -7,11 +7,19 @@ import requests
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from Common.LoggerHelper import LoggerHelper
+from Common.ConfigHelper import ConfigHelper
+import os
+
+BASE_PATH = os.path.abspath(os.path.dirname(__file__))
+LOG_PATH = os.path.join(BASE_PATH, "Log")
 
 class TwitterFollowers():
     def __init__(self):
         self.dbService=DBService.DBService()
-        self.GetTwitterFollowers("")
+        self.logger=LoggerHelper(LOG_PATH).logger
+        self.config=ConfigHelper(BASE_PATH+"/conf.ini")
+        self.GetTwitterFollowers(self.config.getConfig("user","userName"))
 
     def RemoveFormat(self,text):
         return text.replace(',','')
@@ -51,7 +59,7 @@ class TwitterFollowers():
             option.add_argument('--no-sandbox')
 
             driver = webdriver.Chrome(chrome_options=option)
-
+            
             try:
                 driver.get("https://twitter.com/"+username)
                 driver.implicitly_wait(20)
@@ -65,15 +73,17 @@ class TwitterFollowers():
 
                 self.dbService.addTwitterFollowers(username,followersCount,followersCountText,followersCountChange)
                 try:
-                    remote=""
-                    url=remote+"/add?username="+username+"&followersCount="+followersCount+"&followersCountText="+followersCountText+"&followersCountChange="+followersCountChange
+                    remote=self.config.getConfig("api","remoteAddInterface")
+                    url=remote+"?username="+username+"&followersCount="+followersCount+"&followersCountText="+followersCountText+"&followersCountChange="+followersCountChange
                     print(url)
                     self.requestDeal(url)
                 except Exception as error:
                     print(error)
                     pass
+                self.logger.info('抓取成功！'+url)
             except Exception as error:
                     print(error)
+                    self.logger.error('抓取失败！'+str(error))
                     pass
 
             print('半个小时后，再次抓取~')
