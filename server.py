@@ -62,7 +62,7 @@ class TwitterFollowers():
             
             try:
                 driver.get("https://twitter.com/"+username)
-                driver.implicitly_wait(20)
+                driver.implicitly_wait(40)
 
                 followers = driver.find_element(By.XPATH, '//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/div/div/div/div[5]/div[2]/a/span[1]/span')
                 followersCountText=followers.text
