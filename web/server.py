@@ -25,9 +25,12 @@ def addDownloadHistory():
 
 @app.route('/twitter/followers/latest',methods=['GET'])
 def getFollowers():
+    followersInfo=DBService().getFollowers()
+    
     baseDate=datetime.datetime.now().strftime('%Y-%m-%d')
-    result=DBService().getFollowerChange(baseDate)
-    return json.dumps(result)
+    followersInfo["FOLLOWERS_COUNT_CHANGE_TODAY"]=DBService().getFollowersCountChange(baseDate)
+
+    return json.dumps(followersInfo)
 
 if __name__=='__main__':
     app.run('0.0.0.0',9855,debug=False)

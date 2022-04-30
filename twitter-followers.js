@@ -36,7 +36,7 @@ class IosWidget {
         let data = await this.getData();
 
         //粉丝变化情况
-        let change = data['FOLLOWERS_COUNT_CHANGE']
+        let change = data['FOLLOWERS_COUNT_CHANGE_TODAY']
         let changeIcon = parseInt(change) > 0 ? "↑" : "↓";
         let changeText = ""
         let changeAbs = Math.abs(change)

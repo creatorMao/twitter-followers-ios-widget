@@ -35,11 +35,15 @@ python3 server.py
 curl http://xxxx:9855/twitter/followers/latest
 
 
+
 {
-    "FOLLOWERS_COUNT": "6976", 
-    "FOLLOWERS_COUNT_TEXT": "6,976", 
-    "FOLLOWERS_COUNT_CHANGE": "-24", 
-    "IMP_TIME": "2022-04-09 14:37:14"
+    "USER_NAME": "", 
+    "FOLLOWERS_COUNT": "7358", 
+    "FOLLOWERS_COUNT_TEXT": "7,358", 
+    "FOLLOWERS_COUNT_CHANGE": "1", 
+    "IMP_DATE": "2022-04-30", 
+    "IMP_TIME": "2022-04-30 02:55:25", 
+    "FOLLOWERS_COUNT_CHANGE_TODAY": 4 
 }
 ~~~
 
