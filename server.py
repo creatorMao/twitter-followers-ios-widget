@@ -54,19 +54,20 @@ class TwitterFollowers():
     def GetTwitterFollowers(self,username):
         while True:
             option = webdriver.ChromeOptions()
-            option.add_argument('headless')
-            option.add_argument('disable-gpu')
+            option.add_argument("headless")
+            option.add_argument('--disable-gpu')
             option.add_argument('--no-sandbox')
 
             driver = webdriver.Chrome(chrome_options=option)
             
             try:
                 driver.get("https://twitter.com/"+username)
-                driver.implicitly_wait(50)
+                driver.implicitly_wait(80)
 
                 #如果账号提示有敏感内容，需要打开以下代码
-                # driver.find_element(By.XPATH,'//*[@id="react-root"]/div/div/div/main/div/div/div/div/div/div[2]/div/div/div/div/div/div/span/span').click()
-                # driver.implicitly_wait(50)
+                button=driver.find_element(By.XPATH,'//*[@id="react-root"]/div/div/div/main/div/div/div/div/div/div[2]/div/div/div/div/div/div/span/span')
+                driver.execute_script("arguments[0].click();", button)
+                driver.implicitly_wait(80)
 
                 followers = driver.find_element(By.XPATH, '//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/div/div/div/div[5]/div[2]/a/span[1]/span')
                 followersCountText=followers.text
@@ -89,7 +90,7 @@ class TwitterFollowers():
                     print(error)
                     self.logger.error('抓取失败！'+str(error))
                     pass
-
+            
             print('半个小时后，再次抓取~')
             time.sleep((1*3600*1)/2) #半个小时
 
